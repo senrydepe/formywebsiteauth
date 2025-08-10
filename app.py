@@ -43,15 +43,15 @@ async def charge_resp(result):
             response = "Payment method successfully added ✅"
         elif "Thank you for your donation" in result:
             response = "Payment successful! 🎉"
-        elif "Insufficient funds" in result.lower() or "card has insufficient funds." in result.lower():
+        elif "insufficient funds" in result.lower() or "card has insufficient funds." in result.lower():
             response = "INSUFFICIENT FUNDS ✅"
         elif (
-            "Incorrect_cvc" in result.lower()
-            or "Security code is incorrect" in result.lower()
-            or "Your card's security code is incorrect." in result.lower()
+            "incorrect_cvc" in result.lower()
+            or "security code is incorrect" in result.lower()
+            or "your card's security code is incorrect." in result.lower()
         ):
             response = "CVV INCORRECT ❎"
-        elif "Transaction_not_allowed" in result.lower():
+        elif "transaction_not_allowed" in result.lower():
             response = "TRANSACTION NOT ALLOWED ❎"
         elif '"cvc_check": "pass"' in result:
             response = "CVV MATCH ✅"
@@ -64,52 +64,52 @@ async def charge_resp(result):
             or "3ds required" in result.lower()
         ):
             response = "3DS Required ❎"
-        elif "Your card does not support this type of purchase." in result.lower():
+        elif "your card does not support this type of purchase." in result.lower():
             response = "CARD DOES NOT SUPPORT THIS PURCHASE ❎"
         elif (
-            "Generic_decline" in result.lower()
-            or "You have exceeded the maximum number of declines on this card in the last 24 hour period." in result.lower()
-            or "Card_decline_rate_limit_exceeded" in result.lower()
-            or "This transaction cannot be processed." in result.lower()
+            "generic_decline" in result.lower()
+            or "you have exceeded the maximum number of declines on this card in the last 24 hour period." in result.lower()
+            or "card_decline_rate_limit_exceeded" in result.lower()
+            or "this transaction cannot be processed." in result.lower()
             or '"status":400,' in result.lower()
         ):
             response = "GENERIC DECLINED ❌"
-        elif "Do not honor" in result.lower():
+        elif "do not honor" in result.lower():
             response = "DO NOT HONOR ❌"
-        elif "Suspicious activity detected. try again in a few minutes." in result.lower():
+        elif "suspicious activity detected. try again in a few minutes." in result.lower():
             response = "TRY AGAIN IN A FEW MINUTES ❌"
-        elif "Fraudulent" in result.lower():
+        elif "fraudulent" in result.lower():
             response = "FRAUDULENT ❌"
-        elif "Setup_intent_authentication_failure" in result.lower():
+        elif "setup_intent_authentication_failure" in result.lower():
             response = "SETUP_INTENT_AUTHENTICATION_FAILURE ❌"
-        elif "Invalid cvc" in result.lower():
-            response = "INVALID CVV ❌"
-        elif "Stolen card" in result.lower():
+        elif "invalid cvc" in result.lower():
+            response = "INVALID CVV ❎"
+        elif "stolen card" in result.lower():
             response = "STOLEN CARD ❌"
-        elif "Lost_card" in result.lower():
+        elif "lost_card" in result.lower():
             response = "LOST CARD ❌"
-        elif "Pickup_card" in result.lower():
+        elif "pickup_card" in result.lower():
             response = "PICKUP CARD ❌"
-        elif "Incorrect_number" in result.lower():
+        elif "incorrect_number" in result.lower():
             response = "INCORRECT CARD NUMBER ❌"
-        elif "Your card has expired." in result.lower() or "expired_card" in result.lower():
+        elif "your card has expired." in result.lower() or "expired_card" in result.lower():
             response = "EXPIRED CARD ❌"
         elif "intent_confirmation_challenge" in result.lower():
             response = "CAPTCHA ❌"
-        elif "Your card number is incorrect." in result.lower():
+        elif "your card number is incorrect." in result.lower():
             response = "INCORRECT CARD NUMBER ❌"
         elif (
-            "Your card's expiration year is invalid." in result.lower()
+            "your card's expiration year is invalid." in result.lower()
         ):
             response = "EXPIRATION YEAR INVALID ❌"
         elif (
-            "Your card's expiration month is invalid." in result.lower()
-            or "Invalid_expiry_month" in result.lower()
+            "your card's expiration month is invalid." in result.lower()
+            or "invalid_expiry_month" in result.lower()
         ):
             response = "EXPIRATION MONTH INVALID ❌"
         elif "card is not supported." in result.lower():
             response = "CARD NOT SUPPORTED ❌"
-        elif "Invalid account" in result.lower():
+        elif "invalid account" in result.lower():
             response = "DEAD CARD ❌"
         elif (
             "invalid api key provided" in result.lower()
@@ -118,7 +118,7 @@ async def charge_resp(result):
             or "your account cannot currently make live charges." in result.lower()
         ):
             response = "stripe error contact support@stripe.com for more details ❌"
-        elif "Your card was declined." in result.lower() or "card was declined" in result.lower():
+        elif "your card was declined." in result.lower() or "card was declined" in result.lower():
             response = "Your card was declined ❌"
         elif "card number is incorrect." in result.lower():
             response = "CARD NUMBER INCORRECT ❌"
