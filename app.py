@@ -48,6 +48,7 @@ async def charge_resp(result):
         elif (
             "incorrect_cvc" in result.lower()
             or "security code is incorrect" in result.lower()
+            or "invalid_cvc" in result.lower() 
             or "your card's security code is incorrect." in result.lower()
         ):
             response = "CVV INCORRECT ❎"
@@ -66,6 +67,8 @@ async def charge_resp(result):
             response = "3DS Required ❎"
         elif "your card does not support this type of purchase." in result.lower():
             response = "CARD DOES NOT SUPPORT THIS PURCHASE ❎"
+            elif "your card could not be set up for future usage." in result.lower():
+            response = "CARD COULD NOT BE SET UP FOR FUTURE USAGE ❎"
         elif (
             "generic_decline" in result.lower()
             or "you have exceeded the maximum number of declines on this card in the last 24 hour period." in result.lower()
