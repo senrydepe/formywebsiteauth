@@ -102,9 +102,36 @@ def map_error_message(result: str) -> str:
     return result
 
 
+def validate_luhn(card_number: str) -> bool:
+    """Validasi nomor kartu menggunakan algoritma Luhn."""
+    def digits_of(n):
+        return [int(d) for d in n if d.isdigit()]
+    
+    digits = digits_of(card_number)
+    if not digits:
+        return False
+
+    checksum = 0
+    odd_digits = digits[-1::-2]
+    even_digits = digits[-2::-2]
+
+    checksum += sum(odd_digits)
+    for d in even_digits:
+        doubled = d * 2
+        if doubled > 9:
+            doubled -= 9
+        checksum += doubled
+
+    return checksum % 10 == 0
+
+
 async def create_payment_method(fullz, session):
     try:
         cc, mes, ano, cvv = fullz.split("|")
+
+        # Validasi nomor kartu dengan algoritma Luhn
+        if not validate_luhn(cc):
+            return "Incorrect Card Number"
 
         # FORMAT dan VALIDASI MASA BERLAKU KARTU
         mes = mes.zfill(2)
@@ -215,8 +242,8 @@ async def create_payment_method(fullz, session):
             'billing_details[email]': mail,
             'card[number]': cc,
             'card[cvc]': cvv,
-            'card[exp_month]': mes,
-            'card[exp_year]': ano,
+            'card[exp_month]': str(expiry_month),
+            'card[exp_year]': str(expiry_year),
             'guid': '6fd3ed29-4bfb-4bd7-8052-53b723d6a6190f9f90',
             'muid': '6a88dcf2-f935-4ff8-a9f6-622d6f9853a8cc8e1c',
             'sid': '6993a7fe-704a-4cf9-b68f-6684bf728ee6702383',
